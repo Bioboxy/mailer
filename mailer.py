@@ -5,8 +5,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-
-
+import tkinter as tk
 
 host = "smtp.gmail.com"
 port = 465
@@ -56,8 +55,40 @@ class Tkview:
 	def __init__(self):
 		pass
 
-m = Mailer(host, sender, subject, msg_body, receiver, port)
+	def show(self):
 
-m.con()
-m.prep_msg()
-m.sendnow()
+		self.window = tk.Tk()
+		self.window.geometry("700x600+300+40")
+		self.window.title("Simple Mail Sender - Dreambox Global-Tech")
+
+		#grey topbar
+		self.topbar = tk.Frame(self.window, bg = "grey", height = 20, width = 700)
+		self.topbar.grid(row = 1, column = 1)
+
+
+	def hostFrame(self):
+		
+		self.host_frame = tk.Frame(self.window, bg = "white", height = 100, width = 350)
+		self.host_frame.grid(row = 2, column = 1, sticky = tk.E)
+		self.host_frame.grid_propagate(0)
+
+		self.host_title = tk.Label(self.host_frame, text = "Host Settings \n", font = ("Tahoma", 10), bg = "white")
+		self.host_title.grid(row = 0, column = 0)
+
+
+
+	def startApp(self):
+		self.window.mainloop()
+
+
+viewer = Tkview()
+
+viewer.show()
+viewer.hostFrame()
+viewer.startApp()
+
+# m = Mailer(host, sender, subject, msg_body, receiver, port)
+
+# m.con()
+# m.prep_msg()
+# m.sendnow()

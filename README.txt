@@ -1,1 +1,4 @@
-Instructions are shown here...
+Instructions:
+
+
+Simple Email sending app designed with python by dreamboxglobaltech.
