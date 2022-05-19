@@ -5,7 +5,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-import tkinter as tk
 
 host = "smtp.gmail.com"
 port = 465
@@ -49,6 +48,7 @@ class Mailer:
 		print("Mail sent successfully.")
 
 import tkinter as tk
+from tkinter import ttk
 
 class Tkview:
 
@@ -65,16 +65,72 @@ class Tkview:
 		self.topbar = tk.Frame(self.window, bg = "grey", height = 20, width = 700)
 		self.topbar.grid(row = 1, column = 1)
 
+		#grey topbar
+		self.secondbar = tk.Frame(self.window, bg = "grey", height = 20, width = 700)
+		self.secondbar.grid(row = 3, column = 1)
+
 
 	def hostFrame(self):
 		
-		self.host_frame = tk.Frame(self.window, bg = "white", height = 100, width = 350)
+		#Frame
+		self.host_frame = tk.Frame(self.window, bg = "white", height = 90, width = 350)
 		self.host_frame.grid(row = 2, column = 1, sticky = tk.E)
 		self.host_frame.grid_propagate(0)
 
-		self.host_title = tk.Label(self.host_frame, text = "Host Settings \n", font = ("Tahoma", 10), bg = "white")
-		self.host_title.grid(row = 0, column = 0)
+		#Labels
+		self.host_title = tk.Label(self.host_frame, text = "Host Setting", 
+			font = ("Tahoma", 10, "bold"), bg = "white")
+		self.host_title.grid(row = 0, column = 0, columnspan = 2)
 
+		self.host_label = tk.Label(self.host_frame, text = "Host Server: ", 
+			font = ("Tahoma", 10), bg = "white")
+		self.host_label.grid(row = 1, column = 1, sticky = tk.W, pady = 5)
+
+		self.host_port = tk.Label(self.host_frame, text = "Host Port: ", 
+			font = ("Tahoma", 10), bg = "white")
+		self.host_port.grid(row = 2, column = 1, sticky = tk.W)
+
+		#Entries
+		self.host_name = ttk.Combobox(self.host_frame, value = ["[type or select]",
+			"smtp.gmail.com", "smtp.yahoo.com"
+			], width = 30)
+		self.host_name.grid(row = 1, column = 2)
+		self.host_name.current(0)
+
+		self.port_number = ttk.Combobox(self.host_frame, value = ["465", "785", "993"], width = 5)
+		self.port_number.grid(row = 2, column = 2, sticky = tk.W)
+		self.port_number.current(0)
+
+	
+	def loginFrame(self):
+
+		#Frame
+		self.login_frame = tk.Frame(self.window, bg = "white", height = 90, width = 345)
+		self.login_frame.grid(row = 2, column = 1, sticky = tk.W)
+		self.login_frame.grid_propagate(0)
+
+
+		#Labels
+		self.login_title = tk.Label(self.login_frame, text = "Sender Login", 
+			font = ("Tahoma", 10, "bold"), bg = "white")
+		self.login_title.grid(row = 0, column = 0, columnspan = 2)
+
+		self.email_label = tk.Label(self.login_frame, text = "Email: ", 
+			font = ("Tahoma", 10), bg = "white")
+		self.email_label.grid(row = 1, column = 1, sticky = tk.W, pady = 5)
+
+		self.password_label = tk.Label(self.login_frame, text = "Password: ", 
+			font = ("Tahoma", 10), bg = "white")
+		self.password_label.grid(row = 2, column = 1, sticky = tk.W)
+
+		#Entries
+		self.s_email = ttk.Combobox(self.login_frame, value = ["[type or select]"], width = 30)
+		self.s_email.grid(row = 1, column = 2)
+		self.s_email.current(0)
+
+		self.password = ttk.Entry(self.login_frame, show = '*', width = 33)
+		self.password.grid(row = 2, column = 2, sticky = tk.W)
+		
 
 
 	def startApp(self):
@@ -85,6 +141,7 @@ viewer = Tkview()
 
 viewer.show()
 viewer.hostFrame()
+viewer.loginFrame()
 viewer.startApp()
 
 # m = Mailer(host, sender, subject, msg_body, receiver, port)
