@@ -65,9 +65,18 @@ class Tkview:
 		self.topbar = tk.Frame(self.window, bg = "grey", height = 20, width = 700)
 		self.topbar.grid(row = 1, column = 1)
 
-		#grey topbar
+		#grey secondbar
 		self.secondbar = tk.Frame(self.window, bg = "grey", height = 20, width = 700)
 		self.secondbar.grid(row = 3, column = 1)
+
+		#grey thirdbar
+		self.thirdbar = tk.Frame(self.window, bg = "grey", height = 10, width = 700)
+		self.thirdbar.grid(row = 5, column = 1)
+
+		#grey fourthbar
+		self.fourthbar = tk.Frame(self.window, bg = "grey", height = 10, width = 700)
+		self.fourthbar.grid(row = 7, column = 1)
+
 
 
 	def hostFrame(self):
@@ -133,6 +142,61 @@ class Tkview:
 		
 
 
+	def recipientFrame(self):
+
+		#Frame
+		self.recipient_frame = tk.Frame(self.window, bg = "white", height = 110, width = 700)
+		self.recipient_frame.grid(row = 4, column = 1, sticky = tk.W)
+		self.recipient_frame.grid_propagate(0)
+
+
+		#Labels
+		self.recipient_title = tk.Label(self.recipient_frame, text = "Recipient(s)", 
+			font = ("Tahoma", 10, "bold"), bg = "white")
+		self.recipient_title.grid(row = 0, column = 0, columnspan = 2)
+
+		self.receiver_label = tk.Label(self.recipient_frame, text = "Email: ", 
+			font = ("Tahoma", 10), bg = "white")
+		self.receiver_label.grid(row = 1, column = 1, sticky = tk.W)
+
+		self.cc_label = tk.Label(self.recipient_frame, text = "CC: ", 
+			font = ("Tahoma", 10), bg = "white")
+		self.cc_label.grid(row = 2, column = 1, sticky = tk.W)
+
+		self.bcc_label = tk.Label(self.recipient_frame, text = "BCC: ", 
+			font = ("Tahoma", 10), bg = "white")
+		self.bcc_label.grid(row = 3, column = 1, sticky = tk.W)
+
+
+		#Entries
+		self.r_email = ttk.Combobox(self.recipient_frame, value = ["[type or select]"], width = 30)
+		self.r_email.grid(row = 1, column = 2)
+		self.r_email.current(0)
+
+		self.cc = ttk.Combobox(self.recipient_frame, value = ["[type or select]"], width = 30)
+		self.cc.grid(row = 2, column = 2, pady = 5)
+		self.cc.current(0)
+
+		self.bcc = ttk.Combobox(self.recipient_frame, value = ["[type or select]"], width = 30)
+		self.bcc.grid(row = 3, column = 2)
+		self.bcc.current(0)
+
+
+	def Attach(self):
+
+		self.attach_frame = tk.Frame(self.window, bg = "white", height = 110, width = 700)
+		self.attach_frame.grid(row = 6, column = 1, sticky = tk.W)
+		self.attach_frame.grid_propagate(0)
+
+		self.attachment_title = tk.Label(self.attach_frame, text = "Attachment(s)", 
+			font = ("Tahoma", 10, "bold"), bg = "white")
+		self.attachment_title.grid(row = 0, column = 0, columnspan = 2)
+
+		self.attach_button = ttk.Button(self.attach_frame, text = "Add")
+		self.attach_button.grid(row = 1, column = 0)
+		
+		
+
 	def startApp(self):
 		self.window.mainloop()
 
@@ -142,6 +206,8 @@ viewer = Tkview()
 viewer.show()
 viewer.hostFrame()
 viewer.loginFrame()
+viewer.recipientFrame()
+viewer.Attach()
 viewer.startApp()
 
 # m = Mailer(host, sender, subject, msg_body, receiver, port)
