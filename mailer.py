@@ -10,10 +10,11 @@ host = "smtp.gmail.com"
 port = 465
 sender = "dreamboxglobaltech@gmail.com"
 
-subject = "Trial Mail Two"
-msg_body = "Another content goes here."
+subject = "Test Mail Header"
+msg_body = "This is a test mail. \n Content goes here..."
 
-receiver = "bbbooo369@gmail.com"
+receiver = "bbbolaleye@gmail.com"
+
 class Mailer:
 
 	def __init__(self, host, sender, subject, msg_body,  receiver, port):
@@ -45,19 +46,24 @@ class Mailer:
 
 		self.server.sendmail(self.sender, self.receiver, self.final_msg)
 		self.server.quit()
-		print("Mail sent successfully.")
+		print("\n >>>>>Success!>>>>>\
+			\nMail sent successfully. to ", self.receiver, "\n")
 
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, Menu
+
+wind = tk.Tk()
+
 
 class Tkview:
 
-	def __init__(self):
-		pass
+	
+	def __init__(self, wind):
+		self.window = wind
 
 	def show(self):
 
-		self.window = tk.Tk()
+		#self.window = tk.Tk()
 		self.window.geometry("700x600+300+40")
 		self.window.title("Simple Mail Sender - Dreambox Global-Tech")
 
@@ -77,6 +83,7 @@ class Tkview:
 		self.fourthbar = tk.Frame(self.window, bg = "grey", height = 10, width = 700)
 		self.fourthbar.grid(row = 7, column = 1)
 
+		
 
 
 	def hostFrame(self):
@@ -198,17 +205,55 @@ class Tkview:
 		
 
 	def startApp(self):
+		Tkview(wind).show()
+		Tkview(wind).hostFrame()
+		Tkview(wind).loginFrame()
+		Tkview(wind).recipientFrame()
+		Tkview(wind).Attach()
+
 		self.window.mainloop()
 
+class Allmenu(Tkview):
 
-viewer = Tkview()
+	def __init__(self):
+		super().__init__(wind)
 
-viewer.show()
-viewer.hostFrame()
-viewer.loginFrame()
-viewer.recipientFrame()
-viewer.Attach()
+	def mainMenu(self):
+		#Tkview.show(self)
+
+		#Main
+		self.menu_ = Menu(self.window)
+		self.window.config(menu = self.menu_)
+		
+		#File
+		self.fileMenu = Menu(self.menu_)
+		self.menu_.add_cascade(label = "File", menu = self.fileMenu)
+		######Exit
+		self.fileMenu.add_command(label = "Exit", command = self.window.destroy)
+
+		#Edit
+		self.editMenu = Menu(self.menu_)
+		self.menu_.add_cascade(label = "Edit", menu = self.editMenu)
+		self.editMenu.add_command(label = "Host", command = lambda : str)
+		self.editMenu.add_command(label = "Port", command = lambda : str)
+
+		#Settings
+		self.settingsMenu = Menu(self.menu_)
+		self.menu_.add_cascade(label = "Settings", menu = self.settingsMenu)
+		self.settingsMenu.add_command(label = "Host", command = lambda : str)
+		self.settingsMenu.add_command(label = "Port", command = lambda : str)
+
+
+viewer = Tkview(wind)
+
+menu = Allmenu()
+menu.mainMenu()
+
 viewer.startApp()
+
+
+
+
 
 # m = Mailer(host, sender, subject, msg_body, receiver, port)
 

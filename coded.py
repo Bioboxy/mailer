@@ -2,4 +2,7 @@
 class pwd:
 
 	def passed():
-		return "password_goes_here"
+
+		with open("D:\\Softwares\\Python Vids\\Home study\\pwd.db", "r") as f:
+			content = f.read()
+		return content
